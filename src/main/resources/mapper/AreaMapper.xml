@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.buy.mapper.AreaMapper" >
+
+  <resultMap id="areaResultMap" type="com.buy.entity.Area">
+    <id property="areaId" column="area_id"/>
+    <result property="areaName" column="area_Name"/>
+    <result property="priority" column="priority"/>
+    <result property="createTime" column="create_Time"/>
+  </resultMap>
+
+  <insert id="insert" parameterType="com.buy.entity.Area" useGeneratedKeys="true" keyProperty="areaId"
+          keyColumn="area_id">
+    insert into Area(area_name,priority,create_Time) VALUES(#{areaName},#{priority},#{createTime})
+  </insert>
+  
+  <update id="update" parameterType="com.buy.entity.Area">
+    update Area
+    <set>
+      <if test="areaName!=null and areaName!=''">
+        area_Name=#{areaName},
+      </if>
+      <if test="priority!=null">
+        priority = #{priority},
+      </if>
+    </set>
+    where area_id=#{areaId}
+  </update>
+
+  <delete id="del" parameterType="int">
+    delete from Area where area_id=#{areaId}
+  </delete>
+  
+  <select id="getAreas" parameterType="int" resultType="com.buy.entity.Area">
+    select * from Area where area_id=#{areaId}
+  </select>
+  
+  <select id="findArea"  resultType="com.buy.entity.Area">
+    select * from Area order by priority
+  </select>
+</mapper>

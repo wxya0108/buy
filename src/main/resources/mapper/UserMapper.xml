@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.buy.mapper.UserMapper" >
+
+  <insert id="insert" parameterType="com.buy.entity.User">
+    insert into USER VALUES(#{id},#{name},#{age},#{birthday})
+  </insert>
+  
+  <update id="update" parameterType="com.buy.entity.User">
+    update USER
+    <set>
+      <if test="name!=null and name!=''">
+        name=#{name},
+      </if>
+      <if test="age!=0">
+        age=#{age},
+      </if>
+      <if test="birthday!=null and birthday!=''">
+        birthday=#{birthday},
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+
+  <delete id="del" parameterType="int">
+    delete from USER where id=#{id}
+  </delete>
+  
+  <select id="get" parameterType="int" resultType="com.buy.entity.User">
+    select * from USER where id=#{id}
+  </select>
+  
+  <select id="findUser" parameterType="String" resultType="com.buy.entity.User">
+    select * from USER where 1=1
+    <if test="name!=null and name!=''">
+      and name like '%${name}%'
+    </if>
+  </select>
+</mapper>
