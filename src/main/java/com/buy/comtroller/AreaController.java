@@ -54,7 +54,7 @@ public class AreaController {
             result.setMsg("添加成功");
         }else{
             result.setStatus(0);
-            result.setMsg("添加失败");
+            result.setMsg("添加失败111");
         }
         return result;
     }
